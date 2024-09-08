@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Age Calculator</title>
+  <style>
+    body {
+      background: url('bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    .card {
+      background: #010133;
+      color: white;
+      width: 90vw;
+      padding: 2rem;
+      border-radius: 10px;
+    }
+
+    header h3 {
+      background-color: orangered;
+      color: white;
+      font-size: 2rem;
+      padding: 1rem;
+    }
+
+    label {
+      font-size: 1rem;
+      margin: 1rem 0;
+    }
+
+    input {
+      width: 50%;
+      height: 2rem;
+      font-size: 1rem;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    #currentAge {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+      border-radius: 5px;
+      margin-top: 2rem;
+      padding: 1rem;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 768px) {
+      .card {
+        width: 90vw;
+        height: auto;
+        padding: 1rem;
+      }
+
+
+
+      header h3 {
+        font-size: 1.1rem;
+      }
+
+      input {
+        text-align: center;
+        display: block;
+        font-size: 1rem;
+        width: 50%;
+        margin: auto;
+        border-radius: 0;
+        border: 0;
+      }
+
+      marquee {
+        margin-top: 2.4rem;
+        font-size: 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <header>
+      <h3 class="fw-bolder mb-3">AGE CALCULATOR BY HRIDESH</h3>
+    </header>
+    <hr>
+    <div class="mt-2">
+      <label for="inputDob">Enter your date of birth</label> <br>
+      <input id="inputDob" type="date" value="2003-05-15" />
+    </div>
+    <div>
+      <label for="cdate">Enter the Current Date</label> <br>
+      <input id="cdate" type="date" />
+    </div>
+    <button class="btn btn-info mt-5 m-auto rounded-0 px-3" type="button" onclick="getDOB()">Calculate your age
+      now</button>
+    <hr />
+    <div id="currentAge"></div>
+    <div class="small mt-2">
+      <marquee behavior="alternate" scrollamount="4" class="m-0 p-0">किसी भी प्रकार का Website या Web App बनने के लिए
+        संपर्क करें। </marquee>
+      <marquee behavior="alternate" scrollamount="3" class="m-0 p-0"> Contact No.: 7267995307
+      </marquee>
+    </div>
+    <script>
+      function getDOB() {
+        let dobValue = document.getElementById("inputDob").value;
+        let dob = new Date(dobValue);
+        let now = new Date(document.getElementById("cdate").value);
+
+        if (isNaN(dob.getTime()) || isNaN(now.getTime())) {
+          document.getElementById("currentAge").innerHTML = "Invalid Date";
+          return;
+        }
+
+        let yearDiff = now.getFullYear() - dob.getFullYear();
+        let monthDiff = now.getMonth() - dob.getMonth();
+        let dateDiff = now.getDate() - dob.getDate();
+
+        if (dateDiff < 0) {
+          monthDiff--;
+          dateDiff += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        }
+
+        if (monthDiff < 0) {
+          yearDiff--;
+          monthDiff += 12;
+        }
+
+        document.getElementById("currentAge").innerHTML =
+          `Your current Age is <span class='text-warning'> ${yearDiff} </span> years  <span class='text-warning'>  ${monthDiff} </span> months 
+           <span class='text-warning'>  ${dateDiff} </span> days`;
+      }
+
+      function setCurrentDate() {
+        document.getElementById("cdate").value = new Date().toISOString().split('T')[0];
+      }
+
+      setCurrentDate();
+    </script>
+  </div>
+</body>
+
+</html>
